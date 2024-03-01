@@ -3,7 +3,6 @@ class Book:
     def __init__(self, name: str, author: str):
         self.name = name
         self.author = author
-
     @property
     def name(self):
         return self._name
