@@ -1,8 +1,8 @@
 class Book:
-    """ Базовый класс книги. """
+    """Базовый класс книги."""
     def __init__(self, name: str, author: str):
-        self.name = name
-        self.author = author
+        self._name = name
+        self._author = author
 
     @property
     def name(self):
@@ -11,6 +11,7 @@ class Book:
     @property
     def author(self):
         return self._author
+
     def __str__(self):
         return f"Книга {self.name}. Автор {self.author}"
 
@@ -18,10 +19,10 @@ class Book:
         return f"{self.__class__.__name__}(name={self.name!r}, author={self.author!r})"
 
 
-class PaperBook:
+class PaperBook(Book):
     def __init__(self, name: str, author: str, pages: int):
         super().__init__(name, author)
-        self.pages = pages
+        self._pages = pages
 
     @property
     def pages(self):
@@ -29,20 +30,15 @@ class PaperBook:
 
     @pages.setter
     def pages(self, value):
-        if isinstance(value, int) and value > 0:
-            self._pages = value
-        else:
-            raise ValueError("Pages should be a positive integer.")
-
-    def __str__(self):
-        return f"PaperBook: {self._name} by {self._author}, {self._pages} pages"
-
-    def __repr__(self):
-        return f"PaperBook('{self._name}', '{self._author}', {self._pages})"
+        if not isinstance(value, int):
+            raise ValueError("Количество страниц должно быть целым числом.")
+        if value <= 0:
+            raise ValueError("Количество страниц должно быть положительным числом.")
+        self._pages = value
 
 
 class AudioBook(Book):
-    def __init__(self, name, author, duration):
+    def __init__(self, name: str, author: str, duration: float):
         super().__init__(name, author)
         self._duration = duration
 
@@ -52,13 +48,8 @@ class AudioBook(Book):
 
     @duration.setter
     def duration(self, value):
-        if isinstance(value, float) and value > 0:
-            self._duration = value
-        else:
-            raise ValueError("Duration should be a positive float.")
-
-    def __str__(self):
-        return f"AudioBook: {self._name} by {self._author}, duration: {self._duration} hours"
-
-    def __repr__(self):
-        return f"AudioBook('{self._name}', '{self._author}', {self._duration})"
+        if not isinstance(value, (int, float)):
+            raise ValueError("Продолжительность должна быть числом.")
+        if value <= 0:
+            raise ValueError("Продолжительность должна быть положительным числом.")
+        self._duration = value
