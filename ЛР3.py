@@ -1,5 +1,5 @@
 class Book:
-    """Базовый класс книги."""
+    """ Базовый класс книги. """
     def __init__(self, name: str, author: str):
         self._name = name
         self._author = author
@@ -20,9 +20,10 @@ class Book:
 
 
 class PaperBook(Book):
-    def __init__(self, name: str, author: str, pages: int):
-        super().__init__(name, author)
+    def __init__(self, pages: int):
+        super().__init__()
         self._pages = pages
+
 
     @property
     def pages(self):
@@ -36,10 +37,9 @@ class PaperBook(Book):
             raise ValueError("Количество страниц должно быть положительным числом.")
         self._pages = value
 
-
 class AudioBook(Book):
-    def __init__(self, name: str, author: str, duration: float):
-        super().__init__(name, author)
+    def __init__(self, duration: float):
+        super().__init__()
         self._duration = duration
 
     @property
