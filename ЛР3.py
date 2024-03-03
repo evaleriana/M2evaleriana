@@ -1,55 +1,75 @@
-class Book:
-    """ Базовый класс книги. """
-    def __init__(self, name: str, author: str):
-        self._name = name
-        self._author = author
+class Animal:
+    """
+    Base class representing an animal.
+    Attributes:
+        name (str): The name of the animal.
+    """
 
-    @property
-    def name(self):
-        return self._name
+    def __init__(self, name: str):
+        self.name = name
 
-    @property
-    def author(self):
-        return self._author
-
-    def __str__(self):
-        return f"Книга {self.name}. Автор {self.author}"
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}(name={self.name!r}, author={self.author!r})"
+    def speak(self) -> str:
+        """
+        Method to make the animal speak.
+        Returns:
+            str: A greeting message from the animal.
+        """
+        return f"{self.name} says Hello!"
 
 
-class PaperBook(Book):
-    def __init__(self, pages: int):
-        super().__init__()
-        self._pages = pages
+class Dog(Animal):
+    """
+    Class representing a Dog, inheriting from Animal.
+    Attributes:
+        breed (str): The breed of the dog.
+    """
+
+    def __init__(self, name: str, breed: str):
+        super().__init__(name)
+        self.breed = breed
+
+    def speak(self) -> str:
+        """
+        Method to make the dog speak.
+        Returns:
+            str: A barking message from the dog.
+        """
+        return f"{self.name} the {self.breed} barks: Woof! Woof!"
+
+    def fetch(self, item: str) -> str:
+        """
+        Method to make the dog fetch an item.
+        Args:
+            item (str): The item to fetch.
+        Returns:
+            str: A message confirming the item fetched.
+        """
+        return f"{self.name} fetched the {item}!"
 
 
-    @property
-    def pages(self):
-        return self._pages
+class Cat(Animal):
+    """
+    Class representing a Cat, inheriting from Animal.
+    Attributes:
+        color (str): The color of the cat.
+    """
 
-    @pages.setter
-    def pages(self, value):
-        if not isinstance(value, int):
-            raise ValueError("Количество страниц должно быть целым числом.")
-        if value <= 0:
-            raise ValueError("Количество страниц должно быть положительным числом.")
-        self._pages = value
+    def __init__(self, name: str, color: str):
+        super().__init__(name)
+        self.color = color
 
-class AudioBook(Book):
-    def __init__(self, duration: float):
-        super().__init__()
-        self._duration = duration
+    def speak(self) -> str:
+        """
+        Method to make the cat speak.
+        Returns:
+            str: A meowing message from the cat.
+        """
+        return f"{self.name} the {self.color} cat meows: Meow! Meow!"
 
-    @property
-    def duration(self):
-        return self._duration
-
-    @duration.setter
-    def duration(self, value):
-        if not isinstance(value, (int, float)):
-            raise ValueError("Продолжительность должна быть числом.")
-        if value <= 0:
-            raise ValueError("Продолжительность должна быть положительным числом.")
-        self._duration = value
+    def sleep(self) -> str:
+        """
+        Method to make the cat sleep.
+        Returns:
+            str: A message indicating the cat is sleeping.
+        """
+        return f"{self.name} is now sleeping peacefully."
